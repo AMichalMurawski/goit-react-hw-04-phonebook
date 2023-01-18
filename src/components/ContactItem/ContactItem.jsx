@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import css from './ContactItem.module.css';
 
-export function ContactItem({ contact, ...props }) {
+export const ContactItem = ({ contact, onClick }) => {
   const { id, name, number } = contact;
 
   return (
@@ -13,7 +13,7 @@ export function ContactItem({ contact, ...props }) {
       <button
         className={css.button}
         type="button"
-        onClick={e => props.onClick(id)}
+        onClick={e => onClick(id)}
       >
         Delete
       </button>

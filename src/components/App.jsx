@@ -6,15 +6,7 @@ import { ContactItem } from './ContactItem/ContactItem';
 
 const LOCAL_STORAGE_CONTACTS = 'phonebookContacts';
 
-export function App() {
-  const [contacts, setContacts] = useState(getContactsFromLocalStorage);
-  const [filter, setFilter] = useState('');
-
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_CONTACTS, JSON.stringify(contacts));
-  }, [contacts]);
-
-  function getContactsFromLocalStorage() {
+  const getContactsFromLocalStorage = () => {
     try {
       const localContacts = JSON.parse(
         localStorage.getItem(LOCAL_STORAGE_CONTACTS)
@@ -28,7 +20,15 @@ export function App() {
     }
   }
 
-  function handleSubmit(contact) {
+export const App = () => {
+  const [contacts, setContacts] = useState(getContactsFromLocalStorage());
+  const [filter, setFilter] = useState('');
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_CONTACTS, JSON.stringify(contacts));
+  }, [contacts]);
+
+  const handleSubmit = contact => {
     if (
       contacts.find(
         value =>
@@ -44,13 +44,13 @@ export function App() {
     localStorage.setItem(LOCAL_STORAGE_CONTACTS, JSON.stringify(newContacts));
   }
 
-  function deleteContact(id) {
+  const deleteContact = id => {
     const index = contacts.findIndex(contact => contact.id === id);
     contacts.splice(index, 1);
     setContacts([...contacts]);
   }
 
-  function filterContacts() {
+  const filterContacts = () => {
     let contactList = [];
     if (filter.length > 0) {
       contactList = contacts.filter((contact, index, array) => {

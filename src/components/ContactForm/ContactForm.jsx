@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 import css from './ContactForm.module.css';
 
-export function ContactForm(props) {
+export const ContactForm = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  function handleSubmit(e) {
+  const handleSubmit = e => {
     const id = nanoid();
     e.preventDefault();
-    if (!props.onSubmit({ id, name, number })) {
+    if (!onSubmit({ id, name, number })) {
       resetForm();
     }
   }
 
-  function resetForm() {
+  const resetForm = () => {
     setName('');
     setNumber('');
   }
